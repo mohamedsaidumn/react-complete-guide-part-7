@@ -3,6 +3,7 @@ import { Fragment, Component, SyntheticEvent } from "react";
 import Users from "./Users";
 import classes from "./UserFinder.module.css";
 import UsersContext from "../store/users-context";
+import ErrorBoundary from "./ErrorBoundary";
 
 type user = { id: string; name: string };
 
@@ -15,7 +16,7 @@ interface UserFinderProps {}
 
 class UserFinder extends Component<UserFinderProps, UserFinderState> {
   static contextType = UsersContext;
-  context!: React.ContextType<typeof UsersContext>;
+  context!: React.Context<typeof UsersContext>;
 
   constructor(props: UserFinderProps) {
     super(props);
@@ -50,7 +51,9 @@ class UserFinder extends Component<UserFinderProps, UserFinderState> {
         <div className={classes.finder}>
           <input type="search" onChange={this.searchChangeHandler.bind(this)} />
         </div>
-        <Users users={this.state.filteredUsers} />
+        <ErrorBoundary>
+          <Users users={this.state.filteredUsers} />
+        </ErrorBoundary>
       </Fragment>
     );
   }

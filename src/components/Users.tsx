@@ -21,6 +21,16 @@ class Users extends Component<LoginProps, LoginState> {
     };
   }
 
+  componentDidUpdate(
+    prevProps: Readonly<LoginProps>,
+    prevState: Readonly<LoginState>,
+    snapshot?: any
+  ): void {
+    if (this.props.users.length === 0) {
+      throw new Error("No users provided!");
+    }
+  }
+
   toggleUsersHandler() {
     this.setState((curState) => {
       return { showUsers: !curState.showUsers };
