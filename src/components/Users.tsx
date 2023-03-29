@@ -1,20 +1,17 @@
 import React from "react";
-import { useState } from "react";
 import User from "./User";
 import classes from "./Users.module.css";
 import { Component } from "react";
 
-const DUMMY_USERS = [
-  { id: "u1", name: "Max" },
-  { id: "u2", name: "Manuel" },
-  { id: "u3", name: "Julie" },
-];
+type user = { id: string; name: string };
 
 interface LoginState {
   showUsers: boolean;
 }
 
-interface LoginProps {}
+interface LoginProps {
+  users: user[];
+}
 
 class Users extends Component<LoginProps, LoginState> {
   constructor(props: LoginProps) {
@@ -32,7 +29,7 @@ class Users extends Component<LoginProps, LoginState> {
   render(): React.ReactNode {
     const usersList = (
       <ul>
-        {DUMMY_USERS.map((user) => (
+        {this.props.users.map((user) => (
           <User key={user.id} name={user.name} />
         ))}
       </ul>
